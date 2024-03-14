@@ -7,16 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.example.passwordmanager.R
 import com.example.passwordmanager.data.remote.ParsingImgRepositoryImpl
 import com.example.passwordmanager.databinding.FragmentPasswordListBinding
 import com.example.passwordmanager.domain.PasswordItem
+import com.github.terrakok.cicerone.androidx.FragmentScreen
 import kotlinx.coroutines.launch
 
 class PasswordListFragment : Fragment() {
     private var _binding: FragmentPasswordListBinding? = null
     private val binding: FragmentPasswordListBinding
         get() = _binding!!
-    private var adapter: PasswordListAdapter? = null
+    private lateinit var adapter: PasswordListAdapter
+    private val navViewModel = PasswordNavViewModel(App.INSTANCE.passwordRouter)
 
 
     override fun onCreateView(
@@ -31,9 +34,11 @@ class PasswordListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val repository = ParsingImgRepositoryImpl("https://developer.alexanderklimov.ru/")
-        val htmlBody = repository.fetchHtml { html ->
-            Log.i("MyLog", repository.extractIconLinkFromHtml(html))
+        setupRecycleView()
+
+        binding.btnAddPassItem.setOnClickListener {
+            navViewModel.navigateTo(FragmentScreen{ newBundleAddItem() })
+            newBundleAddItem()
         }
 
     }
@@ -41,6 +46,39 @@ class PasswordListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        adapter = null
+    }
+
+    private fun setupRecycleView() {
+        adapter = PasswordListAdapter()
+        binding.rvPassList.adapter = adapter
+        binding.rvPassList.recycledViewPool.setMaxRecycledViews(
+            R.layout.item_password,
+            PasswordListAdapter.MAX_POOL_SIZE
+        )
+    }
+
+    companion object {
+        private const val EXTRA_MODE = "extra_mode"
+        private const val EXTRA_SHOP_ITEM_ID = "extra_shop_item_id"
+        private const val MODE_EDIT = "mode_edit"
+        private const val MODE_ADD = "mode_add"
+        private const val MODE_UNKNOWN = ""
+
+        fun newBundleAddItem() : PasswordItemFragment {
+            return PasswordItemFragment().apply {
+                arguments = Bundle().apply {
+                    putString(EXTRA_MODE, MODE_ADD)
+                }
+            }
+
+        }
+
+        fun newBundleEditItem() : PasswordItemFragment {
+            return PasswordItemFragment().apply {
+                arguments = Bundle().apply {
+                    putString(EXTRA_MODE, MODE_EDIT)
+                }
+            }
+        }
     }
 }

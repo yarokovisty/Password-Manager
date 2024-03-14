@@ -42,6 +42,7 @@ android {
 
 dependencies {
     val roomVersion = "2.6.1"
+    val paging_version = "3.2.1"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -77,4 +78,11 @@ dependencies {
     //Coroutines - Асинхронное программирование
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
+
+    // Cicerone - Навигация
+    implementation("com.github.terrakok:cicerone:7.1")
+
+
+    // Glide - Загрузка изображений
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }
