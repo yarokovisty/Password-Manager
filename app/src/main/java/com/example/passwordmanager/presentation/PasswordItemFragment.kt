@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModelProvider
 import com.example.passwordmanager.R
 import com.example.passwordmanager.databinding.FragmentPasswordItemBinding
 
@@ -16,7 +18,9 @@ class PasswordItemFragment : Fragment() {
     private var _binding: FragmentPasswordItemBinding? = null
     private val binding
         get() = _binding!!
-    private val navViewModel: PasswordNavViewModel by viewModels()
+    private val navViewModel = PasswordNavViewModel(App.INSTANCE.passwordRouter)
+    private lateinit var passwordItemViewModel: PasswordItemViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +33,9 @@ class PasswordItemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        passwordItemViewModel = ViewModelProvider(this)[PasswordItemViewModel::class.java]
+
         parseParams()
     }
 
@@ -38,15 +45,32 @@ class PasswordItemFragment : Fragment() {
     }
 
     private fun parseParams() {
-        val mode = arguments?.getString(EXTRA_MODE) ?: ""
 
-        when(mode) {
+        when(arguments?.getString(EXTRA_MODE) ?: "") {
             MODE_ADD -> launchAddMode()
         }
     }
 
     private fun launchAddMode() {
+        binding.btnSave.setOnClickListener {
+            insertDataToDatabase()
+            navViewModel.backTo()
+        }
+    }
 
+    private fun insertDataToDatabase() = with(binding) {
+        val name = etName.text.toString()
+        val url = etUrl.text.toString()
+        val login = etLogin.text.toString()
+        val password = etPassword.text.toString()
+
+        passwordItemViewModel.addPasswordItem(
+            name,
+            url,
+            login,
+            password
+        )
+        Toast.makeText(requireContext(), "Successfully added", Toast.LENGTH_LONG)
     }
 
     companion object {

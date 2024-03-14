@@ -4,6 +4,6 @@ import androidx.lifecycle.LiveData
 
 class GetPasswordListUseCase(private val passwordListRepository: PasswordListRepository) {
     fun getPasswordList(): LiveData<List<PasswordItem>> {
-        TODO()
+        return passwordListRepository.passwordList
     }
 }
