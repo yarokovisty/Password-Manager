@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.example.passwordmanager.R
 import com.example.passwordmanager.data.remote.ParsingImgRepositoryImpl
 import com.example.passwordmanager.databinding.FragmentPasswordListBinding
@@ -37,9 +39,10 @@ class PasswordListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecycleView()
+        setupSwipeListener()
 
         binding.btnAddPassItem.setOnClickListener {
-            navViewModel.navigateTo(FragmentScreen{ newBundleAddItem() })
+            navViewModel.navigateTo(FragmentScreen { newBundleAddItem() })
             newBundleAddItem()
         }
 
@@ -63,6 +66,27 @@ class PasswordListFragment : Fragment() {
         )
     }
 
+    private fun setupSwipeListener() {
+        val callback = object :
+            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val item = adapter.currentList[viewHolder.adapterPosition]
+                passwordListViewModel.deletePasswordItem(item)
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(callback)
+        itemTouchHelper.attachToRecyclerView(binding.rvPassList)
+    }
+
     companion object {
         private const val EXTRA_MODE = "extra_mode"
         private const val EXTRA_SHOP_ITEM_ID = "extra_shop_item_id"
@@ -70,7 +94,7 @@ class PasswordListFragment : Fragment() {
         private const val MODE_ADD = "mode_add"
         private const val MODE_UNKNOWN = ""
 
-        fun newBundleAddItem() : PasswordItemFragment {
+        fun newBundleAddItem(): PasswordItemFragment {
             return PasswordItemFragment().apply {
                 arguments = Bundle().apply {
                     putString(EXTRA_MODE, MODE_ADD)
@@ -79,7 +103,7 @@ class PasswordListFragment : Fragment() {
 
         }
 
-        fun newBundleEditItem() : PasswordItemFragment {
+        fun newBundleEditItem(): PasswordItemFragment {
             return PasswordItemFragment().apply {
                 arguments = Bundle().apply {
                     putString(EXTRA_MODE, MODE_EDIT)

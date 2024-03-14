@@ -2,9 +2,14 @@ package com.example.passwordmanager.presentation
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.passwordmanager.data.room.PasswordDatabase
+import com.example.passwordmanager.domain.DeletePasswordItemUseCase
 import com.example.passwordmanager.domain.GetPasswordListUseCase
+import com.example.passwordmanager.domain.PasswordItem
 import com.example.passwordmanager.domain.PasswordListRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class PasswordListViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -15,7 +20,13 @@ class PasswordListViewModel(application: Application) : AndroidViewModel(applica
     }
 
     private val getPasswordListUseCase = GetPasswordListUseCase(repository)
+    private val deletePasswordItemUseCase = DeletePasswordItemUseCase(repository)
 
     val passwordList = getPasswordListUseCase.getPasswordList()
 
+    fun deletePasswordItem(passwordItem: PasswordItem) {
+        viewModelScope.launch(Dispatchers.IO) {
+            deletePasswordItemUseCase.deletePasswordItem(passwordItem)
+        }
+    }
 }
