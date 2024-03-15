@@ -42,7 +42,7 @@ android {
 
 dependencies {
     val roomVersion = "2.6.1"
-    val paging_version = "3.2.1"
+    val daggerVersion = "2.17"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -85,4 +85,12 @@ dependencies {
 
     // Glide - Загрузка изображений
     implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    // Dagger - DI
+    kapt("com.google.dagger:dagger-compiler:$daggerVersion")
+    implementation("com.google.dagger:dagger:$daggerVersion")
+
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
 }

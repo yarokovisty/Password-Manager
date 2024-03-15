@@ -6,12 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
-import com.example.passwordmanager.R
+import androidx.lifecycle.lifecycleScope
 import com.example.passwordmanager.databinding.FragmentPasswordItemBinding
+import com.example.passwordmanager.di.App
+import com.example.passwordmanager.domain.PasswordItem
+import kotlinx.coroutines.launch
 
 
 class PasswordItemFragment : Fragment() {
@@ -35,8 +35,8 @@ class PasswordItemFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         passwordItemViewModel = ViewModelProvider(this)[PasswordItemViewModel::class.java]
-
         parseParams()
+
     }
 
     override fun onDestroyView() {
@@ -64,14 +64,24 @@ class PasswordItemFragment : Fragment() {
         val login = etLogin.text.toString()
         val password = etPassword.text.toString()
 
-        passwordItemViewModel.addPasswordItem(
-            name,
-            url,
-            login,
-            password
-        )
-        Toast.makeText(requireContext(), "Successfully added", Toast.LENGTH_LONG)
+
+        with(passwordItemViewModel) {
+            urlIcon.observe(viewLifecycleOwner) {
+                passwordItemViewModel.addPasswordItem(
+                    name,
+                    url,
+                    login,
+                    password,
+                    it
+                )
+            }
+            getUrlIcon(url)
+        }
+
+
     }
+
+
 
     companion object {
         private const val EXTRA_MODE = "extra_mode"
@@ -79,6 +89,7 @@ class PasswordItemFragment : Fragment() {
         private const val MODE_EDIT = "mode_edit"
         private const val MODE_ADD = "mode_add"
         private const val MODE_UNKNOWN = ""
+
     }
 
 

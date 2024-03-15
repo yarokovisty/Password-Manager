@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import com.example.passwordmanager.data.room.PasswordItemDao
 
 class PasswordListRepository(private val passwordItemDao: PasswordItemDao) {
-
     val passwordList = passwordItemDao.getPasswordList()
 
     suspend fun addPassword(passwordItem: PasswordItem) {
@@ -14,5 +13,7 @@ class PasswordListRepository(private val passwordItemDao: PasswordItemDao) {
     suspend fun deletePassword(passwordItem: PasswordItem) {
         passwordItemDao.deletePassword(passwordItem)
     }
+
+
 
 }

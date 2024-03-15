@@ -11,11 +11,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.passwordmanager.R
-import com.example.passwordmanager.data.remote.ParsingImgRepositoryImpl
+import com.example.passwordmanager.data.remote.RemoteRepositoryImpl
 import com.example.passwordmanager.databinding.FragmentPasswordListBinding
-import com.example.passwordmanager.domain.PasswordItem
+import com.example.passwordmanager.di.App
 import com.github.terrakok.cicerone.androidx.FragmentScreen
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.io.IOException
 
 class PasswordListFragment : Fragment() {
     private var _binding: FragmentPasswordListBinding? = null
@@ -38,18 +41,22 @@ class PasswordListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         setupRecycleView()
         setupSwipeListener()
+
+        passwordListViewModel = ViewModelProvider(this)[PasswordListViewModel::class.java]
+        passwordListViewModel.passwordList.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
 
         binding.btnAddPassItem.setOnClickListener {
             navViewModel.navigateTo(FragmentScreen { newBundleAddItem() })
             newBundleAddItem()
         }
 
-        passwordListViewModel = ViewModelProvider(this)[PasswordListViewModel::class.java]
-        passwordListViewModel.passwordList.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
-        }
+
+
     }
 
     override fun onDestroyView() {
@@ -110,5 +117,6 @@ class PasswordListFragment : Fragment() {
                 }
             }
         }
+
     }
 }
