@@ -14,8 +14,12 @@ class PasswordRouterImpl(private val router: Router) : PasswordRouter {
         router.navigateTo(fragmentScreen)
     }
 
-    override fun backTo() {
-        router.backTo(null)
+    override fun backTo(fragmentScreen: FragmentScreen?) {
+        router.backTo(fragmentScreen)
+    }
+
+    override fun exit() {
+        router.exit()
     }
 
 }

@@ -18,4 +18,8 @@ class PasswordListRepository(private val passwordItemDao: PasswordItemDao) {
         return passwordItemDao.getPassword(passwordItemId)
     }
 
+    suspend fun editPassword(passwordItem: PasswordItem) {
+        passwordItemDao.editPassword(passwordItem)
+    }
+
 }

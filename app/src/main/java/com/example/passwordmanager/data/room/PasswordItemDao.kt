@@ -6,6 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.passwordmanager.domain.PasswordItem
 
 @Dao
@@ -16,6 +17,9 @@ interface PasswordItemDao {
 
     @Delete
     suspend fun deletePassword(passwordItem: PasswordItem)
+
+    @Update
+    suspend fun editPassword(passwordItem: PasswordItem)
 
     @Query("SELECT * FROM password_table ORDER BY id ASC")
     fun getPasswordList(): LiveData<List<PasswordItem>>

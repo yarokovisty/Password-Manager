@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.passwordmanager.data.remote.RemoteRepositoryImpl
 import com.example.passwordmanager.data.room.PasswordDatabase
 import com.example.passwordmanager.domain.AddPasswordItemUseCase
+import com.example.passwordmanager.domain.EditPasswordItemUseCase
 import com.example.passwordmanager.domain.GetPasswordItemUseCase
 import com.example.passwordmanager.domain.PasswordItem
 import com.example.passwordmanager.domain.PasswordListRepository
@@ -27,6 +28,7 @@ class PasswordItemViewModel(application: Application) : AndroidViewModel(applica
 
     private val addPasswordItemUseCase = AddPasswordItemUseCase(repository)
     private val getPasswordItemUseCase = GetPasswordItemUseCase(repository)
+    private val editPasswordItemUseCase = EditPasswordItemUseCase(repository)
 
     private val _passwordItem = MutableLiveData<PasswordItem>()
     val passwordItem: LiveData<PasswordItem>
@@ -56,6 +58,28 @@ class PasswordItemViewModel(application: Application) : AndroidViewModel(applica
             addPasswordItemUseCase.addPasswordItem(passwordItem)
         }
 
+    }
+
+    fun editPasswordItem(
+        inputName: String,
+        inputUrl: String,
+        inputLogin: String,
+        inputPassword: String,
+        inputImg: String = ""
+    ) {
+        _passwordItem.value?.let {
+            val item = it.copy(
+                nameSite = inputName,
+                imgSite = inputImg,
+                urlSite = inputUrl,
+                login = inputLogin,
+                password = inputPassword
+            )
+            viewModelScope.launch {
+                editPasswordItemUseCase.editPasswordItem(item)
+            }
+
+        }
     }
 
     fun getPasswordItem(passwordItemId: Int) {

@@ -15,8 +15,12 @@ class PasswordNavViewModel(private val router: PasswordRouter) : ViewModel() {
         router.navigateTo(fragmentScreen)
     }
 
-    fun backTo() {
-        router.backTo()
+    fun backTo(fragmentScreen: FragmentScreen? = null) {
+        router.backTo(fragmentScreen)
+    }
+
+    fun exit() {
+        router.exit()
     }
 
 

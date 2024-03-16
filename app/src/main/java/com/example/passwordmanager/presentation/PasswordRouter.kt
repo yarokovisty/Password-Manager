@@ -8,5 +8,7 @@ interface PasswordRouter  {
 
     fun navigateTo(fragmentScreen: FragmentScreen)
 
-    fun backTo()
+    fun backTo(fragmentScreen: FragmentScreen?)
+
+    fun exit()
 }
