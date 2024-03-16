@@ -1,14 +1,20 @@
 package com.example.passwordmanager.presentation
 
+import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.example.passwordmanager.R
+import com.example.passwordmanager.data.DESUtils
 import com.example.passwordmanager.databinding.FragmentPasswordItemBinding
 import com.example.passwordmanager.di.App
 import com.example.passwordmanager.domain.PasswordItem
@@ -16,6 +22,7 @@ import com.github.terrakok.cicerone.androidx.FragmentScreen
 import kotlinx.coroutines.launch
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 class PasswordItemFragment : Fragment() {
     private var _binding: FragmentPasswordItemBinding? = null
     private val binding
@@ -40,6 +47,8 @@ class PasswordItemFragment : Fragment() {
 
         passwordItemViewModel = ViewModelProvider(this)[PasswordItemViewModel::class.java]
         parseParams()
+        addTextChangeListener()
+        observeViewModel()
 
         binding.tbPasswordItemAdd.setNavigationOnClickListener {
             navViewModel.exit()
@@ -50,6 +59,7 @@ class PasswordItemFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 
     private fun parseParams() {
 
@@ -78,7 +88,7 @@ class PasswordItemFragment : Fragment() {
             with(binding) {
                 etName.setText(it.nameSite)
                 etLogin.setText(it.login)
-                etPassword.setText(it.password)
+                etPassword.setText(DESUtils.decrypt(it.password))
                 etUrl.setText(it.urlSite)
                 setIcon(it.imgSite)
             }
@@ -90,9 +100,14 @@ class PasswordItemFragment : Fragment() {
     }
 
     private fun setIcon(urlIcon: String) {
-        Glide.with(requireContext())
-            .load(urlIcon)
-            .into(binding.ivSite)
+        if (urlIcon.isNotEmpty()) {
+            Glide.with(requireContext())
+                .load(urlIcon)
+                .into(binding.ivSite)
+        } else {
+            binding.ivSite.setImageResource(R.drawable.icon_img)
+        }
+
     }
 
     private fun insertDataToDatabase() = with(binding) {
@@ -111,7 +126,6 @@ class PasswordItemFragment : Fragment() {
                     password,
                     it
                 )
-                navViewModel.backTo()
             }
             getUrlIcon(url)
         }
@@ -134,9 +148,97 @@ class PasswordItemFragment : Fragment() {
                     password,
                     it
                 )
-                navViewModel.backTo()
             }
             getUrlIcon(url)
+        }
+    }
+
+    private fun addTextChangeListener() = with(binding) {
+        etName.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                passwordItemViewModel.resetErrorInputName()
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+        })
+        etUrl.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                passwordItemViewModel.resetErrorInputUrl()
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+        })
+        etLogin.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                passwordItemViewModel.resetErrorInputLogin()
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+        })
+        etPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                passwordItemViewModel.resetErrorInputPassword()
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+        })
+    }
+
+    private fun observeViewModel() = with(passwordItemViewModel){
+        errorInputName.observe(viewLifecycleOwner) {
+            val message = if (it) {
+                getString(R.string.error_input)
+            } else {
+                null
+            }
+            binding.tilName.error = message
+        }
+        errorInputUrl.observe(viewLifecycleOwner) {
+            val message = if (it) {
+                getString(R.string.error_input)
+            } else {
+                null
+            }
+            binding.tilUrl.error = message
+        }
+        errorInputLogin.observe(viewLifecycleOwner) {
+            val message = if (it) {
+                getString(R.string.error_input)
+            } else {
+                null
+            }
+            binding.tilLogin.error = message
+        }
+        errorInputPassword.observe(viewLifecycleOwner) {
+            val message = if (it) {
+                getString(R.string.error_input)
+            } else {
+                null
+            }
+            binding.tilPassword.error = message
+        }
+        shouldCloseScreen.observe(viewLifecycleOwner) {
+            navViewModel.backTo()
         }
     }
 

@@ -19,30 +19,66 @@ class RemoteRepositoryImpl {
     private val client = OkHttpClient()
 
     fun getUrlIcon(url: String, callback: (String) -> Unit) {
-        val request = Request.Builder()
-            .url(url)
-            .build()
+        try {
+            val request = Request.Builder()
+                .url(url)
+                .build()
 
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                e.printStackTrace()
-            }
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    e.printStackTrace()
+                }
 
-            override fun onResponse(call: Call, response: Response) {
-                if (response.isSuccessful) {
-                    callback(fetchUrlIcon(response.body?.string() ?: ""))
+                override fun onResponse(call: Call, response: Response) {
+                    if (response.isSuccessful) {
+                        callback(fetchUrlIcon(response.body?.string() ?: "", url))
 
-                } else {
-                    callback("")
+                    } else {
+                        callback("")
+                    }
+                }
+
+            })
+        } catch (ex: Exception) {
+            callback("")
+        }
+
+    }
+
+    private fun fetchUrlIcon(html: String, url: String): String {
+        val doc = Jsoup.parse(html)
+        val links = doc.select("head > link[href]")
+
+        for (link in links) {
+            val href = link.attr("href")
+
+            for (format in FORMAT_IMG) {
+                if (format in href) {
+
+                    return validateUrlIcon(url, href)
                 }
             }
+        }
 
-        })
+        return ""
     }
 
-    private fun fetchUrlIcon(html: String): String {
-        val doc = Jsoup.parse(html)
-        val link = doc.select("link[rel=icon]")
-        return link.attr("href")
+    companion object {
+        private const val HTTP = "http"
+        private val FORMAT_IMG = listOf(
+            "png",
+            "jpeg",
+            "jpg",
+            "ico",
+            "bmp",
+            "webp",
+            "gif"
+        )
+
+        fun validateUrlIcon(url: String, urlIcon: String): String {
+            return if (HTTP in urlIcon) urlIcon
+            else "$url$urlIcon"
+        }
     }
+
 }
