@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="size_icon_site">50dp</dimen>
+    <dimen name="size_icon_site">40dp</dimen>
+    <dimen name="margin_float_btn">16dp</dimen>
+    <dimen name="margin_horizontal_item">8dp</dimen>
+    <dimen name="margin_vertical_item">8dp</dimen>
+    <dimen name="padding_item">8dp</dimen>
+    <dimen name="corner_radius_item">6dp</dimen>
+    <dimen name="margin_start_text_item">16dp</dimen>
+    <dimen name="text_size_item">16sp</dimen>
+    <dimen name="margin_horizontal_btn_save">8dp</dimen>
+    <dimen name="margin_vertical_btn_save">12dp</dimen>
+    <dimen name="text_size_btn_save">18sp</dimen>
+    <dimen name="margin_horizontal_et_item_add">8dp</dimen>
+    <dimen name="margin_vertical_et_item_add">4dp</dimen>
+    <dimen name="text_size_name_view">24sp</dimen>
+    <dimen name="margin_top_view">32dp</dimen>
+    <dimen name="margin_horizontal_view">8dp</dimen>
+    <dimen name="margin_vertical_view">12dp</dimen>
 </resources>

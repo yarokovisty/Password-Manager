@@ -44,6 +44,7 @@ class PasswordListFragment : Fragment() {
 
         setupRecycleView()
         setupSwipeListener()
+        setupClickListener()
 
         passwordListViewModel = ViewModelProvider(this)[PasswordListViewModel::class.java]
         passwordListViewModel.passwordList.observe(viewLifecycleOwner) {
@@ -94,10 +95,15 @@ class PasswordListFragment : Fragment() {
         itemTouchHelper.attachToRecyclerView(binding.rvPassList)
     }
 
+    private fun setupClickListener() {
+        adapter.onPasswordItemClickListener = { passwordItem ->
+            navViewModel.navigateTo(FragmentScreen{newBundleViewItem(passwordItem.id)})
+        }
+    }
+
     companion object {
         private const val EXTRA_MODE = "extra_mode"
         private const val EXTRA_SHOP_ITEM_ID = "extra_shop_item_id"
-        private const val MODE_EDIT = "mode_edit"
         private const val MODE_ADD = "mode_add"
         private const val MODE_UNKNOWN = ""
 
@@ -110,10 +116,11 @@ class PasswordListFragment : Fragment() {
 
         }
 
-        fun newBundleEditItem(): PasswordItemFragment {
-            return PasswordItemFragment().apply {
+
+        fun newBundleViewItem(id: Int): PasswordItemViewFragment {
+            return PasswordItemViewFragment().apply {
                 arguments = Bundle().apply {
-                    putString(EXTRA_MODE, MODE_EDIT)
+                    putInt(EXTRA_SHOP_ITEM_ID, id)
                 }
             }
         }

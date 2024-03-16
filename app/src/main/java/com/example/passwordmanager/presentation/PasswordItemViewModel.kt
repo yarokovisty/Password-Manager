@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.passwordmanager.data.remote.RemoteRepositoryImpl
 import com.example.passwordmanager.data.room.PasswordDatabase
 import com.example.passwordmanager.domain.AddPasswordItemUseCase
+import com.example.passwordmanager.domain.GetPasswordItemUseCase
 import com.example.passwordmanager.domain.PasswordItem
 import com.example.passwordmanager.domain.PasswordListRepository
 import kotlinx.coroutines.Dispatchers
@@ -25,6 +26,11 @@ class PasswordItemViewModel(application: Application) : AndroidViewModel(applica
     }
 
     private val addPasswordItemUseCase = AddPasswordItemUseCase(repository)
+    private val getPasswordItemUseCase = GetPasswordItemUseCase(repository)
+
+    private val _passwordItem = MutableLiveData<PasswordItem>()
+    val passwordItem: LiveData<PasswordItem>
+        get() = _passwordItem
 
     private val _urlIcon = MutableLiveData<String>()
     val urlIcon: LiveData<String>
@@ -41,8 +47,8 @@ class PasswordItemViewModel(application: Application) : AndroidViewModel(applica
         val passwordItem = PasswordItem(
             0,
             inputName,
-            inputUrl,
             inputImg,
+            inputUrl,
             inputLogin,
             inputPassword
         )
@@ -52,6 +58,13 @@ class PasswordItemViewModel(application: Application) : AndroidViewModel(applica
 
     }
 
+    fun getPasswordItem(passwordItemId: Int) {
+        viewModelScope.launch {
+            val item = getPasswordItemUseCase.getPasswordItem(passwordItemId)
+            _passwordItem.value = item
+        }
+
+    }
 
     fun getUrlIcon(url: String) {
         repositoryRemote.getUrlIcon(url) {

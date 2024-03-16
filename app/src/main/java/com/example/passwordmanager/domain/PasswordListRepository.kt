@@ -14,6 +14,8 @@ class PasswordListRepository(private val passwordItemDao: PasswordItemDao) {
         passwordItemDao.deletePassword(passwordItem)
     }
 
-
+    suspend fun getPassword(passwordItemId: Int): PasswordItem {
+        return passwordItemDao.getPassword(passwordItemId)
+    }
 
 }

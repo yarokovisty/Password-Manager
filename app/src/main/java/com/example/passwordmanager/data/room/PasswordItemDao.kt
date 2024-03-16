@@ -20,5 +20,6 @@ interface PasswordItemDao {
     @Query("SELECT * FROM password_table ORDER BY id ASC")
     fun getPasswordList(): LiveData<List<PasswordItem>>
 
-
+    @Query("SELECT * FROM password_table WHERE id = :itemId")
+    suspend fun getPassword(itemId: Int): PasswordItem
 }

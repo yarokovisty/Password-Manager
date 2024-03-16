@@ -37,6 +37,9 @@ class PasswordItemFragment : Fragment() {
         passwordItemViewModel = ViewModelProvider(this)[PasswordItemViewModel::class.java]
         parseParams()
 
+        binding.tbPasswordItemAdd.setNavigationOnClickListener {
+            navViewModel.backTo()
+        }
     }
 
     override fun onDestroyView() {
@@ -54,7 +57,6 @@ class PasswordItemFragment : Fragment() {
     private fun launchAddMode() {
         binding.btnSave.setOnClickListener {
             insertDataToDatabase()
-            navViewModel.backTo()
         }
     }
 
@@ -74,6 +76,7 @@ class PasswordItemFragment : Fragment() {
                     password,
                     it
                 )
+                navViewModel.backTo()
             }
             getUrlIcon(url)
         }
