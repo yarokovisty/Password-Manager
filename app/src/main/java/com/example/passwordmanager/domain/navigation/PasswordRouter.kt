@@ -1,4 +1,4 @@
-package com.example.passwordmanager.presentation
+package com.example.passwordmanager.domain.navigation
 
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 

@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -43,7 +44,7 @@ android {
 dependencies {
     implementation("androidx.gridlayout:gridlayout:1.0.0")
     val roomVersion = "2.6.1"
-    val daggerVersion = "2.17"
+    val daggerVersion = "2.44"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

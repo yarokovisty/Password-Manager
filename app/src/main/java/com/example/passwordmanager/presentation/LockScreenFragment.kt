@@ -7,13 +7,10 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
@@ -22,9 +19,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.passwordmanager.R
 import com.example.passwordmanager.databinding.FragmentLockScreenBinding
 import com.example.passwordmanager.di.App
-import com.example.passwordmanager.domain.FirstTimePreference
+import com.example.passwordmanager.domain.navigation.PasswordNavViewModel
 import com.github.terrakok.cicerone.androidx.FragmentScreen
-import kotlinx.coroutines.delay
 import java.lang.StringBuilder
 import java.util.concurrent.Executor
 

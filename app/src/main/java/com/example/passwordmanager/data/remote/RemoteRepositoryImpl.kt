@@ -77,6 +77,7 @@ class RemoteRepositoryImpl {
 
         fun validateUrlIcon(url: String, urlIcon: String): String {
             return if (HTTP in urlIcon) urlIcon
+            else if (urlIcon.startsWith('.')) "$url${urlIcon.substringAfter('.')}"
             else "$url$urlIcon"
         }
     }

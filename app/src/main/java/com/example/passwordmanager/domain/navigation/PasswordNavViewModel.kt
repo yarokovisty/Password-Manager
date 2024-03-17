@@ -1,7 +1,5 @@
-package com.example.passwordmanager.presentation
+package com.example.passwordmanager.domain.navigation
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 

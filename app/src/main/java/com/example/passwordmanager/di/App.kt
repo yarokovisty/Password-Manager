@@ -1,10 +1,9 @@
 package com.example.passwordmanager.di
 
 import android.app.Application
-import com.example.passwordmanager.presentation.PasswordRouterImpl
+import com.example.passwordmanager.domain.navigation.PasswordRouterImpl
 import com.github.terrakok.cicerone.Cicerone
 import dagger.hilt.android.HiltAndroidApp
-
 
 class App : Application() {
     private val cicerone = Cicerone.create()

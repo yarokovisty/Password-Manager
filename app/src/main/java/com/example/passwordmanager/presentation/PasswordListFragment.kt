@@ -1,24 +1,18 @@
 package com.example.passwordmanager.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.passwordmanager.R
-import com.example.passwordmanager.data.remote.RemoteRepositoryImpl
 import com.example.passwordmanager.databinding.FragmentPasswordListBinding
 import com.example.passwordmanager.di.App
+import com.example.passwordmanager.domain.navigation.PasswordNavViewModel
 import com.github.terrakok.cicerone.androidx.FragmentScreen
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import java.io.IOException
 
 class PasswordListFragment : Fragment() {
     private var _binding: FragmentPasswordListBinding? = null

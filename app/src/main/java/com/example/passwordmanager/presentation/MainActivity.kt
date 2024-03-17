@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.example.passwordmanager.R
 import com.example.passwordmanager.databinding.ActivityMainBinding
 import com.example.passwordmanager.di.App
+import com.example.passwordmanager.domain.navigation.PasswordNavViewModel
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 

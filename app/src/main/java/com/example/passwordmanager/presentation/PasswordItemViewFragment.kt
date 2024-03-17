@@ -5,20 +5,18 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.passwordmanager.R
 import com.example.passwordmanager.data.DESUtils
 import com.example.passwordmanager.databinding.FragmentPasswordItemViewBinding
 import com.example.passwordmanager.di.App
+import com.example.passwordmanager.domain.navigation.PasswordNavViewModel
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
