@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    tools:context=".presentation.LockScreenFragment">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tbLockScreen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/second"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/app_name"
+        app:titleTextColor="@color/white" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/scrNoFirstTIme"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tbLockScreen">
+
+        <androidx.gridlayout.widget.GridLayout
+            android:id="@+id/glInputPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/margin_vertical_gl_lock_scr"
+            android:background="@drawable/custom_btn_ripple"
+            android:padding="@dimen/padding_gl_lock_scr"
+            app:columnCount="3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:rowCount="4">
+
+
+            <Button
+                android:id="@+id/btnNum1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_btn_ripple"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_btn_lock_scr" />
+
+            <Button
+                android:id="@+id/btnNum2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_btn_ripple"
+                android:text="2"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_btn_lock_scr" />
+
+            <Button
+                android:id="@+id/btnNum3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_btn_ripple"
+                android:text="3"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_btn_lock_scr" />
+
+            <Button
+                android:id="@+id/btnNum4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_btn_ripple"
+                android:text="4"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_btn_lock_scr" />
+
+            <Button
+                android:id="@+id/btnNum5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_btn_ripple"
+                android:text="5"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_btn_lock_scr" />
+
+            <Button
+                android:id="@+id/btnNum6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_btn_ripple"
+                android:text="6"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_btn_lock_scr" />
+
+            <Button
+                android:id="@+id/btnNum7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_btn_ripple"
+                android:text="7"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_btn_lock_scr" />
+
+            <Button
+                android:id="@+id/btnNum8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_btn_ripple"
+                android:text="8"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_btn_lock_scr" />
+
+            <Button
+                android:id="@+id/btnNum9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_btn_ripple"
+                android:text="9"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_btn_lock_scr" />
+
+            <ImageButton
+                android:id="@+id/btnDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_btn_ripple"
+                android:onClick="onClick"
+                android:src="@drawable/icon_backspace"
+                app:layout_gravity="center" />
+
+            <Button
+                android:id="@+id/btnNum0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_btn_ripple"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_btn_lock_scr" />
+
+            <ImageButton
+                android:id="@+id/btnFingerPrint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_btn_ripple"
+                android:onClick="onClick"
+                android:src="@drawable/icon_finger_print"
+                app:layout_gravity="center" />
+        </androidx.gridlayout.widget.GridLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/glInputPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgPass1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_horizontal_points"
+                android:layout_weight="1"
+                android:importantForAccessibility="no"
+                android:src="@drawable/icon_point_pass" />
+
+            <ImageView
+                android:id="@+id/imgPass2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_horizontal_points"
+                android:layout_weight="1"
+                android:importantForAccessibility="no"
+                android:src="@drawable/icon_point_pass" />
+
+            <ImageView
+                android:id="@+id/imgPass3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_horizontal_points"
+                android:layout_weight="1"
+                android:importantForAccessibility="no"
+                android:src="@drawable/icon_point_pass" />
+
+            <ImageView
+                android:id="@+id/imgPass4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_horizontal_points"
+                android:layout_weight="1"
+                android:importantForAccessibility="no"
+                android:src="@drawable/icon_point_pass" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/scrFirstTime"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tbLockScreen">
+
+        <Button
+            android:id="@+id/btnReadyLockScr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginHorizontal="@dimen/margin_horizontal_btn_lock_scr"
+            android:layout_marginVertical="@dimen/margin_vertical_btn_lock_scr"
+            android:background="@color/third"
+            android:text="@string/ready"
+            android:textColor="@color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            tools:ignore="UselessParent">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPasswordLockScr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_horizontal_et_pass"
+                android:layout_marginVertical="@dimen/margin_vertical_et_pass"
+                app:counterEnabled="true"
+                app:counterMaxLength="4">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPasswordLockScr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password"
+                    android:inputType="numberPassword"
+                    android:maxLength="4" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_horizontal_et_pass"
+                android:layout_marginVertical="@dimen/margin_vertical_et_pass"
+                android:hint="@string/confirmation"
+                app:counterEnabled="true"
+                app:counterMaxLength="4">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etConfirmPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberPassword"
+                    android:maxLength="4" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

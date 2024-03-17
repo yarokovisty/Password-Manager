@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.gridlayout:gridlayout:1.0.0")
     val roomVersion = "2.6.1"
     val daggerVersion = "2.17"
 
@@ -93,4 +94,10 @@ dependencies {
     // Hilt
     implementation("com.google.dagger:hilt-android:2.44")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
+
+    // Crypto - Сохранение пароля пользователя
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
+
+    // Biometric - Биометрия
+    implementation("androidx.biometric:biometric:1.1.0")
 }

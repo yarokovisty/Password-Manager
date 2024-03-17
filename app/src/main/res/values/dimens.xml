@@ -17,4 +17,13 @@
     <dimen name="margin_top_view">32dp</dimen>
     <dimen name="margin_horizontal_view">8dp</dimen>
     <dimen name="margin_vertical_view">12dp</dimen>
+    <dimen name="text_size_btn_lock_scr">28sp</dimen>
+    <dimen name="margin_vertical_gl_lock_scr">16dp</dimen>
+    <dimen name="margin_horizontal_points">4dp</dimen>
+    <dimen name="margin_horizontal_btn_lock_scr">8dp</dimen>
+    <dimen name="margin_vertical_btn_lock_scr">8dp</dimen>
+    <dimen name="margin_horizontal_et_pass">16dp</dimen>
+    <dimen name="margin_vertical_et_pass">8dp</dimen>
+    <dimen name="radius_ripple_btn_lock_src">28dp</dimen>
+    <dimen name="padding_gl_lock_scr">8dp</dimen>
 </resources>

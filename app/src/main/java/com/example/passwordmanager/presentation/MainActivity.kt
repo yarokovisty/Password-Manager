@@ -19,10 +19,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (savedInstanceState == null) {
-            navViewModel.replaceScreen(FragmentScreen{ PasswordListFragment() })
-        }
+        navViewModel.replaceScreen(FragmentScreen{ LockScreenFragment() })
     }
+
 
     override fun onResumeFragments() {
         super.onResumeFragments()

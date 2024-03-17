@@ -9,4 +9,8 @@
     <string name="password">Password</string>
     <string name="web_site">Web-site</string>
     <string name="error_input">Incorrect input</string>
+    <string name="exit">EXIT</string>
+    <string name="ready">Ready</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="cancel">Cancel</string>
 </resources>
