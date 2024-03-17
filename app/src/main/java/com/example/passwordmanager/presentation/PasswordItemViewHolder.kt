@@ -5,6 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.passwordmanager.R
+import com.example.passwordmanager.data.remote.RemoteRepositoryImpl
 import com.example.passwordmanager.databinding.ItemPasswordBinding
 import com.example.passwordmanager.domain.PasswordItem
 
@@ -20,6 +21,7 @@ class PasswordItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         } else {
             iconSite.setImageResource(R.drawable.icon_img)
         }
+
 
     }
 }

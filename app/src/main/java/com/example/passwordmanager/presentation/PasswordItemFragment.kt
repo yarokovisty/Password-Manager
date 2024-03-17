@@ -47,7 +47,6 @@ class PasswordItemFragment : Fragment() {
 
         passwordItemViewModel = ViewModelProvider(this)[PasswordItemViewModel::class.java]
         parseParams()
-        addTextChangeListener()
         observeViewModel()
 
         binding.tbPasswordItemAdd.setNavigationOnClickListener {
@@ -153,90 +152,9 @@ class PasswordItemFragment : Fragment() {
         }
     }
 
-    private fun addTextChangeListener() = with(binding) {
-        etName.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                passwordItemViewModel.resetErrorInputName()
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-            }
-
-        })
-        etUrl.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                passwordItemViewModel.resetErrorInputUrl()
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-            }
-
-        })
-        etLogin.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                passwordItemViewModel.resetErrorInputLogin()
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-            }
-
-        })
-        etPassword.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                passwordItemViewModel.resetErrorInputPassword()
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-            }
-
-        })
-    }
 
     private fun observeViewModel() = with(passwordItemViewModel){
-        errorInputName.observe(viewLifecycleOwner) {
-            val message = if (it) {
-                getString(R.string.error_input)
-            } else {
-                null
-            }
-            binding.tilName.error = message
-        }
-        errorInputUrl.observe(viewLifecycleOwner) {
-            val message = if (it) {
-                getString(R.string.error_input)
-            } else {
-                null
-            }
-            binding.tilUrl.error = message
-        }
-        errorInputLogin.observe(viewLifecycleOwner) {
-            val message = if (it) {
-                getString(R.string.error_input)
-            } else {
-                null
-            }
-            binding.tilLogin.error = message
-        }
-        errorInputPassword.observe(viewLifecycleOwner) {
-            val message = if (it) {
-                getString(R.string.error_input)
-            } else {
-                null
-            }
-            binding.tilPassword.error = message
-        }
         shouldCloseScreen.observe(viewLifecycleOwner) {
             navViewModel.backTo()
         }
